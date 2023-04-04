@@ -2,8 +2,9 @@ def example3(x, y, z):
 	a = x + y
 	return x + y
 
-def example4(x, y, z):
-	return x 
+def example4(x, y):
+	x = y
+	return y
 
 
 
@@ -11,4 +12,5 @@ def example4(x, y, z):
 # no levanta el error, ya que solo se levanta el error de z no utilizada, y no de a, ya que a no
 # es un argumento.
 
-# para el caso adicional example4 caso adicional muestra el error cuando dos argumentos no son usados
+# para el caso adicional example4 caso adicional muestra el argumento no usado es redefinido, lo que tampoco
+# significa una utilizacion del argumento original

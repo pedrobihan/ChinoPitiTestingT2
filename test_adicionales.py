@@ -50,9 +50,12 @@ class TestWarnings(unittest.TestCase):
     """ Nombre: test_unused_argument
         Codigo a ser analizado: extra-test-code/unusedArgument.py
         Descripcion: Test para evaluar UnusedArgumentRule considerando los siguientes escenarios:
-        - Linea <numero-linea> : <Descripcion de codigo - caso a considerar>
+        - Linea 1: En funcion example3, argumento z no es utilizado, variable a definida no utilizada
+        - Linea 5: En funcion example4, argmuento x no es utilizado pero si redefinida
         
-        Resultado esperado (Una lista de warnings): .....
+        Resultado esperado (Una lista de warnings): 
+        [Warning('UnusedArgument', 1, 'argument z is not used'),
+        Warning('UnusedArgument', 5, 'argument x is not used')]
     """
 
     def test_unused_argument(self):
@@ -63,8 +66,7 @@ class TestWarnings(unittest.TestCase):
 
         # Actualice el valor de expectedWarnings de acuerdo a su caso de prueba propuesto
         expectedWarnings = [Warning('UnusedArgument', 1, 'argument z is not used'),
-                            Warning('UnusedArgument', 5, 'argument y is not used'),
-                            Warning('UnusedArgument', 5, 'argument z is not used')]
+                            Warning('UnusedArgument', 5, 'argument x is not used')]
 
         self.assertEqual(result, expectedWarnings)
 
@@ -72,9 +74,11 @@ class TestWarnings(unittest.TestCase):
     """ Nombre: test_super_init_not_called
         Codigo a ser analizado: extra-test-code/superInitNotCalled.py
         Descripcion: Test para evaluar SuperInitNotCalledRule considerando los siguientes escenarios:
-        - Linea <numero-linea> : <Descripcion de codigo - caso a considerar>
+        - Linea 7: Definicion de __init__ de Child (subclase de Parent) con llamada a super().__init__ en otro formato
+        - Linea 13 : Definicion de superMalo() de Child2 (subclase de Parent) con llamada a super().__init__ 
         
-        Resultado esperado (Una lista de warnings): .....
+        Resultado esperado (Una lista de warnings):
+        [Warning('SuperInitNotCalled', 13, 'subclass Child2 does not call to super().__init__()')]
     """
 
     def test_super_init_not_called(self):
@@ -110,7 +114,8 @@ class TestWarnings(unittest.TestCase):
     """ Nombre: test_simplified_if
         Codigo a ser analizado: extra-test-code/simplifiedIf.py
         Descripcion: Test para evaluar SimplifiedIfRewriterCommand considerando los siguientes escenarios:
-        - Linea <numero-linea> : <Descripcion de codigo - caso a considerar>
+        - Linea 2: Uso de la expresion if cuando puede ser reemplazada por el if.test aun que el if.test tambien sea True
+        - Linea 5: Uso de la expresion if cuando puede ser reemplazada por el not if.test aun que el if.test tambien sea False
         
         Resultado esperado: extra-test-code/expectedSimplifiedIf.py
     """
