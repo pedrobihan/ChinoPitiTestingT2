@@ -6,3 +6,5 @@ from .uncouple_method import *
 from .dummy_if import *
 from .uninitialized_attribute import *
 from .many_arguments import *
+from .unused_argument import *
+from .super_init_not_called import *
