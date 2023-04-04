@@ -41,7 +41,9 @@ class TestWarnings(unittest.TestCase):
 
 
         # Actualice el valor de expectedWarnings de acuerdo a su caso de prueba propuesto
-        expectedWarnings = []
+        expectedWarnings = [Warning('VariableLongName', 2, 'variable contadorsuperlargooficial has a long name'),
+                            Warning('VariableLongName', 9, 'variable nombrevariablemuylargolarguisimo has a long name'),
+                            Warning('VariableLongName', 12, 'variable nombrevariablemuylargolarguisimo has a long name')]
 
         self.assertEqual(result, expectedWarnings)
 
