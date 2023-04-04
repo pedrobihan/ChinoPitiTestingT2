@@ -62,7 +62,9 @@ class TestWarnings(unittest.TestCase):
         result = unusedArgRule.analyze(tree)
 
         # Actualice el valor de expectedWarnings de acuerdo a su caso de prueba propuesto
-        expectedWarnings = []
+        expectedWarnings = [Warning('UnusedArgument', 1, 'argument z is not used'),
+                            Warning('UnusedArgument', 5, 'argument y is not used'),
+                            Warning('UnusedArgument', 5, 'argument z is not used')]
 
         self.assertEqual(result, expectedWarnings)
 
@@ -82,7 +84,7 @@ class TestWarnings(unittest.TestCase):
         result = superInitRule.analyze(tree)
 
         # Actualice el valor de expectedWarnings de acuerdo a su caso de prueba propuesto
-        expectedWarnings = []
+        expectedWarnings = [Warning('SuperInitNotCalled', 13, 'subclass Child2 does not call to super().__init__()')]
 
         self.assertEqual(result, expectedWarnings)
 
