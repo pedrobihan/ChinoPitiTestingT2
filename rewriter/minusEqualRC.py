@@ -10,30 +10,24 @@ class MinusEqualsTransformer(NodeTransformer):
             if isinstance(node.targets[0], Name):
                 if isinstance(node.value, BinOp):
                     if isinstance(node.value.op, Sub):
-                        #print("dump: ",dump(node.value))
-                        if isinstance(node.value.right, Constant):
-                            right_value = node.value.right.value
-                            value = Constant(value=right_value)
-                        else:
-                            right_value = node.value.right.id if isinstance(node.value.right, Name) else None
-                            value = Name(id=right_value, ctx=Load())
-                        left_value = node.value.left.id if isinstance(node.value.left, Name) else None
-                        op = Sub()
+                        if node.targets[0].id == node.value.left.id:
+                            if isinstance(node.value.right, Constant):
+                                right_value = node.value.right.value
+                                value = Constant(value=right_value)
+                            else:
+                                right_value = node.value.right.id if isinstance(node.value.right, Name) else None
+                                value = Name(id=right_value, ctx=Load())
+                            left_value = node.value.left.id if isinstance(node.value.left, Name) else None
+                            op = Sub()
 
-                        target = Name(id=left_value, ctx=Store())
+                            target = Name(id=left_value, ctx=Store())
 
-                        aug_assign_node = AugAssign(target=target, op=op, value=value)
+                            aug_assign_node = AugAssign(target=target, op=op, value=value)
 
-                        return aug_assign_node
+                            return aug_assign_node
         else:
-            return None       
-
-        # if node.func.id == 'eval':
-        #     return Call(func=Name(id='literal_eval', ctx=Load()), 
-        #                 args=node.args, 
-        #                 keywords=node.keywords)
-        # else:
-        #     return node
+            return node     
+        return  node
 
 
 class MinusEqualsRewriterCommand(RewriterCommand):

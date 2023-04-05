@@ -100,7 +100,9 @@ class TestWarnings(unittest.TestCase):
     """ Nombre: test_minus_equal_rewriter
         Codigo a ser analizado: extra-test-code/minusEquals.py
         Descripcion: Test para evaluar transformador MinusEqualsRewriterCommand considerando los siguientes escenarios:
-        - Linea <numero-linea> : <Descripcion de codigo - caso a considerar>
+        - Linea 2 : test para evaluar la substraccion de dos caracteres, donde ninguno de esos es la variable a asignar -
+        lo anterior considera un caso que fue borde al crear la función, donde x = y - z, con x != y, si no se agregaba ese 
+        caso borde, x = y - z hubiese sido reemplazado por x -= z, lo cual era incorrecto 
         
         Resultado esperado: extra-test-code/expectedMinusEquals.py
     """
@@ -112,6 +114,7 @@ class TestWarnings(unittest.TestCase):
         tree = command.apply(tree)
 
         expectedCode = self.get_ast_from_file('extra-test-code/expectedMinusEquals.py')
+
         self.assertEqual(dump(tree), dump(expectedCode))
 
 
