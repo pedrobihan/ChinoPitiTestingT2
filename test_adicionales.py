@@ -28,9 +28,17 @@ class TestWarnings(unittest.TestCase):
     """ Nombre: test_long_variable_name
         Codigo a ser analizado: extra-test-code/longVariableName.py
         Descripcion: Test para evaluar LongVariableNameRule considerando los siguientes escenarios:
-        - Linea <numero-linea> : <Descripcion de codigo - caso a considerar>
-        
-        Resultado esperado (Una lista de warnings): .....
+        - Linea 2 : asignación de valor a una variable - no se deberría poder dado que variables muy largas entorpecen el código.
+        - Linea 4 : operación sobre una variable de nombre largo - no debería arrojar error dado que no usa el método Assign id, 
+                                                                   solo asigna cambio de valor a variable que ya fue identificada como erronea.
+        - Linea 9 : se asigna atributo a variable en una  función de una clase - se usa método Assign y su id queda muy largo (se cuentan los 
+                                                                5 caracteres de "self." mas los que tenga el nombre de la variable).
+        - Linea 12 : se asigna atributo a variable en una  función de una clase - se usa método Assign y su id queda muy largo (se cuentan los 
+                                                                5 caracteres de "self." mas los que tenga el nombre de la variable).
+
+        Resultado esperado: [Warning('VariableLongName', 2, 'variable contadorsuperlargooficial has a long name'),
+                            Warning('VariableLongName', 9, 'variable nombrevariablemuylargolarguisimo has a long name'),
+                            Warning('VariableLongName', 12, 'variable nombrevariablemuylargolarguisimo has a long name')]
     """
 
     def test_long_variable_name(self):
@@ -96,7 +104,9 @@ class TestWarnings(unittest.TestCase):
     """ Nombre: test_minus_equal_rewriter
         Codigo a ser analizado: extra-test-code/minusEquals.py
         Descripcion: Test para evaluar transformador MinusEqualsRewriterCommand considerando los siguientes escenarios:
-        - Linea <numero-linea> : <Descripcion de codigo - caso a considerar>
+        - Linea 2 : test para evaluar la substraccion de dos caracteres, donde ninguno de esos es la variable a asignar -
+        lo anterior considera un caso que fue borde al crear la función, donde x = y - z, con x != y, si no se agregaba ese 
+        caso borde, x = y - z hubiese sido reemplazado por x -= z, lo cual era incorrecto 
         
         Resultado esperado: extra-test-code/expectedMinusEquals.py
     """
@@ -108,6 +118,7 @@ class TestWarnings(unittest.TestCase):
         tree = command.apply(tree)
 
         expectedCode = self.get_ast_from_file('extra-test-code/expectedMinusEquals.py')
+
         self.assertEqual(dump(tree), dump(expectedCode))
 
 

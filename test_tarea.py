@@ -46,7 +46,6 @@ class TestWarnings(unittest.TestCase):
         Warning('VariableLongName', 4, 'variable mysuperlistfrom1to10 has a long name'),
         Warning('VariableLongName', 13, 'variable completeHomeAddress has a long name')]
 
-
         self.assertEqual(result, expectedWarnings)
 
     """ Nombre: test_unused_argument
@@ -114,6 +113,7 @@ class TestWarnings(unittest.TestCase):
         tree = command.apply(tree)
 
         expectedCode = self.get_ast_from_file('expected-code/code-minus-equal.py')
+
         self.assertEqual(dump(tree), dump(expectedCode))
 
 

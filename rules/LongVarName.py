@@ -10,7 +10,7 @@ class LongVariableNameVisitor(WarningNodeVisitor):
                 if len(node.targets[0].id) > 15:
                     self.addWarning('VariableLongName', node.lineno, 'variable '+node.targets[0].id+' has a long name')
             elif isinstance(node.targets[0], Attribute):
-                if len(node.targets[0].attr) > 10:
+                if len(node.targets[0].attr) > 15:
                     self.addWarning('VariableLongName', node.lineno, 'variable '+node.targets[0].attr+' has a long name') # aca node debe ser el nombre de la var
 
 class LongVariableNameRule(Rule):
