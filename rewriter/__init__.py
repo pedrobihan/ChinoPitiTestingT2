@@ -4,3 +4,4 @@ from .rewriter import *
 from .eval_rewriter import *
 from .if_true_rewriter import *
 from .minusEqualRC import *
+from .simplified_if_rewriter import *
